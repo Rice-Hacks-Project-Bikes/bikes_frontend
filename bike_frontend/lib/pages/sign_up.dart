@@ -9,15 +9,23 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Sign Up for App"),
-        ),
+      
         body: Center(
-          child: ElevatedButton(
-              onPressed: _launchUrl, child: Text("Signin with SSO")),
+          child: Column(children: [
+            SizedBox(height: 250.0),
+            Image.network("https://socialimpact.com/wp-content/uploads/2021/03/logo-placeholder.jpg", height: 150.0,),
+            Expanded(child: Container()),
+            Padding(padding: EdgeInsets.only(bottom: 180.0), child: ElevatedButton(
+              onPressed: _launchUrl, child: Text("Signin with SSO")))
+          ],)
+           
+
         ));
   }
 }
+
+
+
 
 final Uri _url = Uri.parse('https://flutter.dev');
 
