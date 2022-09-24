@@ -1,8 +1,12 @@
+import 'package:bike_frontent/models/requests.dart';
+import 'package:bike_frontent/pages/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bike_frontent/pages/list_bike.dart';
+
+import '../models/bikes.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -12,20 +16,18 @@ class SignUp extends StatelessWidget {
     return Scaffold(
       
         body: Center(
-          child: Column(children: [
-            SizedBox(height: 250.0),
-            Image.network("https://socialimpact.com/wp-content/uploads/2021/03/logo-placeholder.jpg", height: 150.0,),
-            Expanded(child: Container()),
-            Padding(padding: EdgeInsets.only(bottom: 180.0), 
-            child: ElevatedButton(
-              child: Text("Signin with SSO"),
-              onPressed: () {Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const list_bike()),
-            );},), )//_launchUrl, child: Text("Signin with SSO")))
-          ],)
-           
-
+          child: ElevatedButton(
+              onPressed: () async {
+                List<Bike> bikes = BikeHttp().getBikesNearby();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MapPage(
+                              bikesNearYou: bikes,
+                            )));
+                //_launchUrl
+              },
+              child: Text("Signin with SSO")),
         ));
   }
 }
