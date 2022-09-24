@@ -1,3 +1,4 @@
+import 'package:bike_frontent/pages/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -14,7 +15,12 @@ class SignUp extends StatelessWidget {
         ),
         body: Center(
           child: ElevatedButton(
-              onPressed: _launchUrl, child: Text("Signin with SSO")),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MapPage()));
+                //_launchUrl
+              },
+              child: Text("Signin with SSO")),
         ));
   }
 }
