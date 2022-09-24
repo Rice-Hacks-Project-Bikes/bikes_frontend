@@ -1,8 +1,11 @@
+import 'package:bike_frontent/models/requests.dart';
 import 'package:bike_frontent/pages/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../models/bikes.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -15,9 +18,14 @@ class SignUp extends StatelessWidget {
         ),
         body: Center(
           child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MapPage()));
+              onPressed: () async {
+                List<Bike> bikes = BikeHttp().getBikesNearby();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MapPage(
+                              bikesNearYou: bikes,
+                            )));
                 //_launchUrl
               },
               child: Text("Signin with SSO")),

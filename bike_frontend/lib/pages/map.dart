@@ -10,20 +10,19 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../models/bikes.dart';
+
 // ignore: must_be_immutable
 class MapPage extends StatelessWidget {
-  MapPage({Key? key}) : super(key: key);
+  List<Bike> bikesNearYou;
+
+  MapPage({Key? key, required this.bikesNearYou}) : super(key: key);
 
   late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
   @override
   Widget build(BuildContext context) {
+    print(bikesNearYou);
     return Scaffold(
         body: FutureBuilder(
             future: checkPerms(),
@@ -65,11 +64,11 @@ class MapPage extends StatelessWidget {
                       maxHeight: MediaQuery.of(context).size.height * 0.65,
                       borderRadius: BorderRadius.all(Radius.circular(25)),
                       panel: Column(
-                        children: [],
+                        children: [Text("Bike Near You")],
                       ))
                 ]);
               }
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             })));
   }
 }
