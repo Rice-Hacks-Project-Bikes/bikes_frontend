@@ -1,3 +1,4 @@
+import 'package:bike_frontent/components/bikes_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:link/components/hangoutContainer.dart';
@@ -48,6 +49,7 @@ class MapPage extends StatelessWidget {
                           double long = double.parse(locationData[3]);
                           //_setMarkers(LatLng(lat, long));
                           return GoogleMap(
+                            // markers: Market,
                             myLocationEnabled: true,
                             compassEnabled: true,
 
@@ -64,7 +66,10 @@ class MapPage extends StatelessWidget {
                       maxHeight: MediaQuery.of(context).size.height * 0.65,
                       borderRadius: BorderRadius.all(Radius.circular(25)),
                       panel: Column(
-                        children: [Text("Bike Near You")],
+                        children: [
+                          Text("Bikes in Your Area"),
+                          BikesList(bikes: bikesNearYou)
+                        ],
                       ))
                 ]);
               }
