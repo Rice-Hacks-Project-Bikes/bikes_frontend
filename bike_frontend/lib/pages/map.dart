@@ -7,7 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:link/models/hangouts.dart';
 // import 'package:link/models/user.dart';
 // import 'package:provider/provider.dart';
-// import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:geolocator/geolocator.dart';
 
 // ignore: must_be_immutable
@@ -60,60 +60,17 @@ class MapPage extends StatelessWidget {
                             //markers: _markers,
                           );
                         }
-                      })
+                      }),
+                  SlidingUpPanel(
+                      maxHeight: MediaQuery.of(context).size.height * 0.65,
+                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      panel: Column(
+                        children: [],
+                      ))
                 ]);
               }
               return CircularProgressIndicator();
-            })
-            // SlidingUpPanel(
-            //     maxHeight: MediaQuery.of(context).size.height * 0.65,
-            //     borderRadius: BorderRadius.all(Radius.circular(25)),
-            //     panel: Column(
-            //       children: [
-            //         UserTile(
-            //           userObject: Provider.of<User>(context),
-            //           user: true,
-            //         ),
-            //         Expanded(
-            //             child: ListView(
-            //           // itemExtent: 3,
-            //           children: [
-            //             ListView.builder(
-            //                 physics: NeverScrollableScrollPhysics(),
-            //                 // scrollDirection: Axis.vertical,
-            //                 shrinkWrap: true,
-            //                 itemCount: Provider.of<User>(context)
-            //                         .userOwnedHangouts
-            //                         ?.length ??
-            //                     0,
-            //                 itemBuilder: (context, index) {
-            //                   return HangoutContainer(
-            //                     hangouts: Provider.of<HangoutList>(context)
-            //                         .returnHangoutsById(Provider.of<User>(context)
-            //                             .userOwnedHangouts)[index],
-            //                   );
-            //                 }),
-            //             ListView.builder(
-            //                 physics: NeverScrollableScrollPhysics(),
-            //                 // scrollDirection: Axis.vertical,
-            //                 shrinkWrap: true,
-            //                 itemCount:
-            //                     Provider.of<User>(context).friendsId.length,
-            //                 itemBuilder: (context, index) {
-            //                   // print(Provider.of<User>(context).friendsId);
-            //                   return UserTile(
-            //                     userObject: Provider.of<FriendsList>(context)
-            //                         .getFriendsById(Provider.of<User>(context)
-            //                             .friendsId)[index],
-            //                     user: false,
-            //                   );
-            //                 })
-            //           ],
-            //         ))
-            //       ],
-            //     ))
-
-            ));
+            })));
   }
 }
 
