@@ -22,8 +22,8 @@ class SignUp extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => list_bike(
-                              // bikesNearYou: bikes,
+                        builder: (context) => list_bike(//MapPage(
+                              //bikesNearYou: bikes,
                             )));
                 //_launchUrl
               },

@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:bike_frontent/pages/map.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:bike_frontent/pages/camera_screen.dart';
+
+import '../models/bikes.dart';
+import '../models/requests.dart';
 
 class list_bike extends StatelessWidget {
   const list_bike({super.key});
+  
+  get firstCamera => null;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List your bicycle'),
+        title: const Text('Create your bicycle listing'),
       ),
-      body: Column( 
+      /*body: 
+      Container(
+      child: SlidingUpPanel(
+      maxHeight: MediaQuery.of(context).size.height * 0.65,
+      panel: Column(
+        children: [Text("This is the sliding Widget"),] 
+      ), ), */
+      body:
+      Column( 
         children: [
           Container(
             padding: EdgeInsets.all(60.0),
@@ -19,13 +35,32 @@ class list_bike extends StatelessWidget {
           style: TextButton.styleFrom(
           padding: EdgeInsets.all(20.0),
           ),
-          onPressed: () {
-            //open Google Maps to drop a pin or use location services
+          onPressed: () async {
+                List<Bike> bikes = BikeHttp().getBikesNearby();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MapPage(
+                              bikesNearYou: bikes,
+                            )));
+            
           },
-          child: const Text('Bicycle Location',
+          child: const Text('Where is your bike?',
           style: TextStyle(fontSize: 20.0),),
         ),),
-          const Bikecategory(),
+         Container(
+          padding: EdgeInsets.all(20.0),
+          child: ElevatedButton( 
+            onPressed: () {CameraScreen();
+            }, 
+            child: const Text('Upload a photo of your bike here',
+            style: TextStyle( fontSize: 20.0),)
+            
+          )),
+         // TakePhoto(),
+          Container(
+            padding: EdgeInsets.all(50.0),
+            child: Bikecategory()),
           const Spacer(),
           Container(
         alignment: Alignment.bottomCenter,
@@ -34,19 +69,17 @@ class list_bike extends StatelessWidget {
         child: ElevatedButton(
           style: TextButton.styleFrom(
             padding: const EdgeInsets.all(20.0),
-            
           ),
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('List Bicycle',
+          child: const Text('List your bicycle',
           style: TextStyle( fontSize: 20.0)),
-          
         ),
       ),
       ],
     ),
-    );
+      ); 
   }
 }
 const List<String> list = <String>["Men's Bicycle", "Women's Bicycle", "Children's Bicycle", "Recreational Bicycle"];
