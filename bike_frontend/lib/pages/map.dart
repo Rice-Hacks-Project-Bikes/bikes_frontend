@@ -1,4 +1,5 @@
 import 'package:bike_frontent/components/bikes_list.dart';
+import 'package:bike_frontent/components/nav_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:link/components/hangoutContainer.dart';
@@ -25,56 +26,59 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print(bikesNearYou);
     return Scaffold(
-        body: FutureBuilder(
-            future: checkPerms(),
-            builder: ((BuildContext context, AsyncSnapshot<bool> snapshot) {
-              if (snapshot.hasData) {
-                return Stack(children: <Widget>[
-                  StreamBuilder(
-                      stream: Geolocator.getPositionStream(),
-                      builder: (context, asyncSnapshot) {
-                        if (asyncSnapshot.hasError) {
-                          print("Error!");
-                          return new Text("Error!");
-                        } else if (asyncSnapshot.data == null) {
-                          print("no location");
-                          return Text("no location");
-                        } else {
-                          List locationData = asyncSnapshot.data
-                              .toString()
-                              .split(':')
-                              .join(',')
-                              .split(',');
-                          double lat = double.parse(locationData[1]);
-                          double long = double.parse(locationData[3]);
-                          //_setMarkers(LatLng(lat, long));
-                          return GoogleMap(
-                            // markers: Market,
-                            myLocationEnabled: true,
-                            compassEnabled: true,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+      ),
+      body: FutureBuilder(
+          future: checkPerms(),
+          builder: ((BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.hasData) {
+              return Stack(children: <Widget>[
+                StreamBuilder(
+                    stream: Geolocator.getPositionStream(),
+                    builder: (context, asyncSnapshot) {
+                      if (asyncSnapshot.hasError) {
+                        print("Error!");
+                        return new Text("Error!");
+                      } else if (asyncSnapshot.data == null) {
+                        print("no location");
+                        return Text("no location");
+                      } else {
+                        List locationData = asyncSnapshot.data
+                            .toString()
+                            .split(':')
+                            .join(',')
+                            .split(',');
+                        double lat = double.parse(locationData[1]);
+                        double long = double.parse(locationData[3]);
+                        //_setMarkers(LatLng(lat, long));
+                        return GoogleMap(
+                          // markers: Market,
+                          myLocationEnabled: true,
+                          compassEnabled: true,
 
-                            mapType: MapType.normal,
-                            initialCameraPosition: CameraPosition(
-                              target: LatLng(lat, long),
-                              zoom: 13,
-                            ),
-                            //markers: _markers,
-                          );
-                        }
-                      }),
-                  SlidingUpPanel(
-                      maxHeight: MediaQuery.of(context).size.height * 0.65,
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      panel: Column(
-                        children: [
-                          Text("Bikes in Your Area"),
-                          BikesList(bikes: bikesNearYou)
-                        ],
-                      ))
-                ]);
-              }
-              return const CircularProgressIndicator();
-            })));
+                          mapType: MapType.normal,
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(lat, long),
+                            zoom: 13,
+                          ),
+                          //markers: _markers,
+                        );
+                      }
+                    }),
+                SlidingUpPanel(
+                    maxHeight: MediaQuery.of(context).size.height * 0.65,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    panel: Column(
+                      children: [BikesList(bikes: bikesNearYou)],
+                    ))
+              ]);
+            }
+            return const CircularProgressIndicator();
+          })),
+      drawer: const NavDrawer(),
+    );
   }
 }
 

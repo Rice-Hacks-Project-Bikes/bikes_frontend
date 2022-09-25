@@ -30,6 +30,10 @@
 	<string>Main</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need access to your location to show bikes in your area</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need to upload photos of your bike</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need to take photos of your bike</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

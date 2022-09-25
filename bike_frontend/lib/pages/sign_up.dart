@@ -14,24 +14,22 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
         body: Center(
-          child: ElevatedButton(
-              onPressed: () async {
-                List<Bike> bikes = BikeHttp().getBikesNearby();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => list_bike(//MapPage(
-                              //bikesNearYou: bikes,
-                            )));
-                //_launchUrl
-              },
-              child: Text("Signin with SSO")),
-        ));
+      child: ElevatedButton(
+          onPressed: () async {
+            List<Bike> bikes = BikeHttp().getBikesNearby();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MapPage(
+                          bikesNearYou: bikes,
+                        )));
+            //_launchUrl
+          },
+          child: Text("Signin with SSO")),
+    ));
   }
 }
- 
 
 final Uri _url = Uri.parse('https://flutter.dev');
 
